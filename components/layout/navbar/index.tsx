@@ -10,7 +10,16 @@ import Search, { SearchSkeleton } from './search';
 const { SITE_NAME } = process.env;
 
 export async function Navbar() {
-  const menu = await getMenu('next-js-frontend-header-menu');
+  let menu = await getMenu('main-menu');
+  
+  // 如果没有找到菜单，使用默认菜单
+  if (menu.length === 0) {
+    menu = [
+      { title: 'All Products', path: '/search' },
+      { title: 'Hydrogen', path: '/search/hydrogen' },
+      { title: 'Automated', path: '/search/automated-collection' }
+    ];
+  }
 
   return (
     <nav className="relative flex items-center justify-between p-4 lg:px-6">
